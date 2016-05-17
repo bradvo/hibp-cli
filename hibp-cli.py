@@ -25,8 +25,8 @@ aparser.add_argument('-d', '--hints', action='store_true',
                     help="hibp.py -a -d (-s example@email.com or -f /path/to/file)")
 args = aparser.parse_args()
 
-# Change adobedump to path of your cred file, C:/adobe/cred
-adobedump = ''
+# Change adobedump to path of your cred file
+adobedump = 'C:/path/to/cred/file'
 breachurl = 'https://haveibeenpwned.com/api/v2/breachedAccount/'
 pasteurl = 'https://haveibeenpwned.com/api/v2/pasteaccount/'
 
@@ -40,8 +40,7 @@ def grep_file(search):
         proc = subprocess.Popen(('grep "%s" %s' % (search, adobedump)),
                                   stdout = subprocess.PIPE)
         # speed up grep with linux paramters
-        #proc = subprocess.Popen(('LC_ALL=C fgrep "%s" %s' % (search, adobedump)),
-                                   stdout = subprocess.PIPE)
+        #proc = subprocess.Popen(('LC_ALL=C fgrep "%s" %s' % (search, adobedump)), stdout = subprocess.PIPE)
         output = proc.communicate()[0]
         if len(output) >= 1:
             for line in output.splitlines():
@@ -58,7 +57,6 @@ def open_file():
     for i in args.file:
         with open(i, 'r') as efile:
             lines = efile.read().splitlines()
-        efile.close()
     return lines
 
 
@@ -97,8 +95,6 @@ def get_breach_domain(email, s):
                     print email + ':' + eljson['Domain']
             else:
                 print email + ':' + eljson['Domain']
-    else:
-        pass
 
 
 def get_breach_paste(email, s):
@@ -108,8 +104,6 @@ def get_breach_paste(email, s):
     if r.status_code == 200:
         for eljson in r.json():
             print email + ':' + eljson['Source'].lower() + '.com/' + eljson['Id']
-    else:
-        pass
 
 
 def hibp_search_results(emails):

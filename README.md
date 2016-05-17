@@ -9,10 +9,27 @@ _See Naked Security's [post](https://nakedsecurity.sophos.com/2013/11/04/anatomy
 
 # Prerequisites
 * Python 2.7
+* Python requests library
 * grep (cygwin on windows)
 
+# How to install
+Install [cygwin](https://cygwin.com/install.html)
 
-# How to
+Clone repo
+
+```git clone https://github.com/bradvo/hibp-cli.git```
+
+Add windows python path to end of cygwin profile (windows only)
+```
+echo "PATH=/cygdrive/c/Python27:\$PATH" >> ~/.bash_profile 
+source ~/.bash_profile
+```
+
+Install requests library
+
+```pip install requests```
+
+# How to use
 Search term from one or many strings
 
 ```python hibp-cli.py -s example@email.com```
